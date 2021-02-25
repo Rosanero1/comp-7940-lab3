@@ -25,11 +25,11 @@ def main():
     # register a dispatcher to handle message: here we register an echo dispatcher
     echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
     dispatcher.add_handler(echo_handler)
-
+    print(echo_handler)
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("add", add))
     dispatcher.add_handler(CommandHandler("help", help_command))
-
+    dispatcher.add_handler(CommandHandler("hello", hello_command))
 
     # To start the bot:
     updater.start_polling()
@@ -48,6 +48,10 @@ def echo(update, context):
 def help_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
     update.message.reply_text('Helping you helping you.')
+def hello_command(update: Update, context: CallbackContext) -> None:
+
+    name = context.args[0] 
+    update.message.reply_text('Good day,' +name+'!')
 
 
 def add(update: Update, context: CallbackContext) -> None:
